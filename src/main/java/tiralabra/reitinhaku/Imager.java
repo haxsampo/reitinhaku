@@ -15,28 +15,31 @@ import javax.swing.*;
 public class Imager {
       
     public static void main(String[] args) throws Exception{
-    new Imager();
+        new Imager(args[0]);
   }
         
- public void Imager() throws Exception
+ public Imager(final String filename) throws Exception
   {
-    SwingUtilities.invokeLater(new Runnable()
-    {
-      public void run()
-      {
+    SwingUtilities.invokeLater(new Runnable() {
+      public void run() {
         JFrame editorFrame = new JFrame("Image Demo");
         editorFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         BufferedImage image = null;
-        try
-        {
-          image = ImageIO.read(new File("C:/Users/toni_/Koulu/tiralabra/bootybay.png"));
+        try{
+          image = ImageIO.read(new File(filename));
         }
-        catch (Exception e)
-        {
+        catch (Exception e){
           e.printStackTrace();
           System.exit(1);
         }
+        
+        for (int x = 0; x < image.getWidth(); x++) {
+            for (int y = 0; y < image.getHeight(); y++) {
+                image.setRGB(x, y, Color.RED.getRGB());
+            }
+        }
+        
         ImageIcon imageIcon = new ImageIcon(image);
         JLabel jLabel = new JLabel();
         jLabel.setIcon(imageIcon);
