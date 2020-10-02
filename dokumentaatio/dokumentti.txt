@@ -1,5 +1,25 @@
 Määrittelydokumentti
+-----------------------v0.2---------------------------
+Reitinhakualgoritmi MovingAI Labin karttaan.
 
+Käytettävät algoritmit, tavoitteena greedt best first search ja A*. 
+
+Ratkaistava ongelma: reitinhaku pikseleitten perusteella rakennetussa ruudukossa. A* valinta perustuu sen standardiuteen ts. se on käsittääkseni yleinen ja yleisesti hyväksi koettu.
+Greedy Best First vaikutti toimivan ainakin linkatun sivuston visualisaatiossa erityisen hyvin kaupunkiympäristössä. Se kykeni muutaman sadan noden reitteihin, siinä missä muilla meni selkeästi pidempiä aikoja.
+
+Syötteet ja käyttö: MovingAI labin karttoja. Valitaan aluksi yksi ja luodaan myöhemmin mahdollisuus valita kartta.
+
+Aika-ja tilavaativuudet
+
+Lähteet
+
+Opinto-ohjelma: tietojenkäsittelytieteen kandidaatti
+
+Valittu kieli: Suomi
+
+
+
+------------------------v0.1--------------------------
 Reitinhakualgoritmi openstreemapin dataa käyttäen TAI jotain Moving AI labin karttaa käyttäen.
 Ilmeisesti osm data tulisi esiprosessoida siten, että se olisi nodemaisessa muodossa. En ole varma onko tämä kooltaan sopivan kokoinen projekti. Tulkitsin siis, että moving ai:n kartat olisi esikäsiteltyjä.
 
@@ -7,6 +27,7 @@ Käytettävät algoritmit: A* ja https://www.kevanahlquist.com/osm_pathfinding/ 
 
 Ratkaistava ongelma: reitinhaku nodejärjestelmässä. A* valinta perustuu sen standardiuteen ts. se on käsittääkseni yleinen ja yleisesti hyväksi koettu.
 Greedy Best First vaikutti toimivan ainakin linkatun sivuston visualisaatiossa erityisen hyvin kaupunkiympäristössä. Se kykeni muutaman sadan noden reitteihin, siinä missä muilla meni selkeästi pidempiä aikoja.
+A*:in pitäisi antaa nopein reitti, siinä missä GBFS ei anna parasta reittiä. 
 
 Syötteet ja käyttö: Luultavasti täytyy valita joku esidigitoitu aineisto. Syötteet siis toivottavasti joku openstreetmapin esidigitoitu aineisto, tai Moving AI:n 2d kartta. 
 

@@ -15,10 +15,10 @@ import javax.swing.*;
 public class Imager {
       
     public static void main(String[] args) throws Exception{
-        new Imager(args[0]);
+        new Imager();
   }
         
- public Imager(final String filename) throws Exception
+ public Imager() throws Exception
   {
     SwingUtilities.invokeLater(new Runnable() {
       public void run() {
@@ -27,18 +27,23 @@ public class Imager {
         
         BufferedImage image = null;
         try{
-          image = ImageIO.read(new File(filename));
+          image = ImageIO.read(new File("C:/Users/toni_/Koulu/tiralabra/reitinhaku/src/main/java/tiralabra/reitinhaku/bootybay.png"));
         }
         catch (Exception e){
           e.printStackTrace();
           System.exit(1);
         }
-        
+        KuvaProsessori kp = new KuvaProsessori(image);
+        kp.kuvastaPikseleiksi();
+        kp.pikseleistaKuvaksi();
+        image = kp.getPikseliKuva();
+        /*
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
                 image.setRGB(x, y, Color.RED.getRGB());
             }
         }
+        */
         
         ImageIcon imageIcon = new ImageIcon(image);
         JLabel jLabel = new JLabel();
