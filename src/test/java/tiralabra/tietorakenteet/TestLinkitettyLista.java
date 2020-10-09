@@ -74,11 +74,9 @@ public class TestLinkitettyLista{
         
         l.lisaa(ls);
         l.lisaa(ab);
-        System.out.println(l.getPituus());
         //listalla ls <-> ab
         
         l.ekaPois();
-        System.out.println(l.getPituus());
         assertEquals(ab.getArvo(),l.getEka().getArvo());
         //listalla ab
         

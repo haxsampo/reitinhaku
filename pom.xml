@@ -20,22 +20,24 @@
     	</dependency>
 	</dependencies>
 
-	<build>
+    <build>
     	<plugins>
-      	  <plugin>
-            	<artifactId>maven-compiler-plugin</artifactId>
-            	<configuration>
-              	  <source>1.8</source>
-             	   <target>1.8</target>
-           	 </configuration>
-           	 <version>3.3</version>
-       	 </plugin>
-       	 <plugin>
-           	 <groupId>org.pitest</groupId>
-           	 <artifactId>pitest-maven</artifactId>
-            	<version>1.1.8</version>
-        	</plugin>
-   	 </plugins>
-	</build>
+            <plugin>
+                  <artifactId>maven-compiler-plugin</artifactId>
+                  <configuration>
+                    <source>1.8</source>
+                     <target>1.8</target>
+                   </configuration>
+                   <version>3.3</version>
+           </plugin>
+            <plugin>
+                    <groupId>org.pitest</groupId>
+                    <artifactId>pitest-maven</artifactId>
+                   <version>1.1.8</version>
+           </plugin>
+           
+   	</plugins>
+         
+    </build>
 
 </project>
