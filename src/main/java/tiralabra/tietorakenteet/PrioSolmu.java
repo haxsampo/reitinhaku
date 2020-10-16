@@ -5,6 +5,8 @@ public class PrioSolmu {
     PrioSolmu ennen;
     PrioSolmu jalkeen;
     int etaisyys;
+    Koordinaatti kohde;
+    Koordinaatti sijainti;
     int x;
     int y;
     
@@ -12,9 +14,27 @@ public class PrioSolmu {
     public PrioSolmu(int omaX, int omaY,int kohdeX,int kohdeY) {
         this.x = omaX;
         this.y = omaY;
-        this.etaisyys = etaisyys(kohdeX, kohdeY);
+        this.kohde = new Koordinaatti(kohdeX,kohdeY);
+        this.sijainti = new Koordinaatti(omaX, omaY);
+        this.etaisyys = etaisyys();
         this.ennen = null;
         this.jalkeen = null;
+    }
+    
+    public PrioSolmu(Koordinaatti sijainti, Koordinaatti kohde) {
+        this.sijainti = sijainti;
+        this.kohde = kohde;
+        this.etaisyys = etaisyys();
+        this.ennen = null;
+        this.jalkeen = null;
+    }
+
+    public Koordinaatti getSijainti() {
+        return sijainti;
+    }
+
+    public void setSijainti(Koordinaatti sijainti) {
+        this.sijainti = sijainti;
     }
 
     public PrioSolmu getEnnen() {
@@ -41,9 +61,10 @@ public class PrioSolmu {
         this.etaisyys = etaisyys;
     }
     
-    public int etaisyys(int kohdeX, int kohdeY) {
-        int xOsa = kohdeX - x;
-        int yOsa = kohdeY - y;
+    public int etaisyys() {
+        
+        int xOsa = kohde.getX() - sijainti.getX();
+        int yOsa = kohde.getY() - sijainti.getY();
         int etaisyys = abs(xOsa) + abs(yOsa);
         return etaisyys;
     }

@@ -35,7 +35,8 @@ public class Imager {
         }
         KuvaProsessori kp = new KuvaProsessori(image);
         kp.kuvastaPikseleiksi();
-        kp.pikseleistaKuvaksi();
+        //kp.pikseleistaKuvaksi();
+        kp.maalaaVarilla();
         image = kp.getPikseliKuva();
         /*
         for (int x = 0; x < image.getWidth(); x++) {
