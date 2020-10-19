@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tiralabra.reitinhaku;
 
+import algoritmit.Ahne;
+import tiralabra.tietorakenteet.Koordinaatti;
 import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
@@ -35,16 +32,15 @@ public class Imager {
         }
         KuvaProsessori kp = new KuvaProsessori(image);
         kp.kuvastaPikseleiksi();
-        //kp.pikseleistaKuvaksi();
-        kp.maalaaVarilla();
+        //kp.maalaaVarilla();
+        Ahne gbf = new Ahne(260, 373, 601,900, kp.getPikselit());
+        gbf.etsiReitti();
+        kp.setPikselit(gbf.piirraReitti());
+          
+        kp.pikseleistaKuvaksi();
+        
         image = kp.getPikseliKuva();
-        /*
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
-                image.setRGB(x, y, Color.RED.getRGB());
-            }
-        }
-        */
+        
         
         ImageIcon imageIcon = new ImageIcon(image);
         JLabel jLabel = new JLabel();

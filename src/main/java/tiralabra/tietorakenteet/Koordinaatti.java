@@ -44,4 +44,21 @@ public class Koordinaatti {
         }
         return true;
     }
+    
+    @Override
+    public String toString() {
+        return String.format(this.x + " "+ this.y);
+    }
+    
+    /*
+    Sietää noin 30 000 x 30 000 pikselin karttoja ennenkuin
+    ylittää intin bittimäärän
+    */ 
+    @Override
+    public int hashCode() {
+        int result = (this.x + this.y) * (this.x + this.y + 1) / 2 + this.x;
+        return result;
+    }
+    
+    
 }

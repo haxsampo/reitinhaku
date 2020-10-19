@@ -7,7 +7,6 @@ import java.awt.Color;
 public class KuvaProsessori {
     
     int pikselit[][];
-    int kulkukelpoisuus[][];
     BufferedImage kuva;
     BufferedImage pikseliKuva;
     //int musta = 0;
@@ -16,12 +15,12 @@ public class KuvaProsessori {
     int vihrea = -16744704;
     int harmaa = -1710619;
     int vaalSininen = -16757505;
-    int path = -12336;
+    int path = -1236;
     
     public KuvaProsessori(BufferedImage kuva) {
         this.kuva = kuva;
         pikselit = new int[kuva.getHeight()][kuva.getWidth()];
-        kulkukelpoisuus = new int[kuva.getHeight()][kuva.getWidth()];
+        System.out.println("KuvaprosessoriKonstruktori korkeus_leveys "+kuva.getHeight() + "_"+kuva.getWidth());
     }
     
     public void kuvastaPikseleiksi() {
@@ -31,26 +30,12 @@ public class KuvaProsessori {
             for(int x = 0; x < leveys; x++) {
                 int kordVari = kuva.getRGB(x, y);
                 pikselit[y][x] = kordVari;
-                if(kordVari == harmaa) {
-                    kulkukelpoisuus[y][x] = 1;
-                } else {
-                    kulkukelpoisuus[y][x] = 0;
-                }
                  
             }
         }
     }
-
-    public int[][] getKulkukelpoisuus() {
-        return kulkukelpoisuus;
-    }
-
-    public void setKulkukelpoisuus(int[][] kulkukelpoisuus) {
-        this.kulkukelpoisuus = kulkukelpoisuus;
-    }
     
-    public void pikseleistaKuvaksi() {
-        //värityyppi voi olla päin vittua
+    public void pikseleistaKuvaksi() {      
         int korkeus = pikselit.length;
         int leveys = pikselit[0].length;
         BufferedImage uusi = new BufferedImage(pikselit.length, pikselit[0].length, 2);
@@ -70,13 +55,22 @@ public class KuvaProsessori {
         this.pikseliKuva = pikseliKuva;
     }
     
+    public int[][] getPikselit() {
+        return pikselit;
+    }
+    
+    public void setPikselit(int[][] pikselit) {
+        this.pikselit = pikselit;
+    }
+    
     public void maalaaVarilla() {
         int korkeus = pikselit.length;
         int leveys = pikselit[0].length;
         BufferedImage uusi = new BufferedImage(pikselit.length, pikselit[0].length, 2);
         for(int y = 0; y<korkeus; y++) {
             for(int x=0; x<leveys;x++) {
-                uusi.setRGB(x, y, path);
+                uusi.setRGB(x, y, -1710619);
+                pikselit[y][x] = -1710619;
             }
         }
         this.pikseliKuva = uusi;
