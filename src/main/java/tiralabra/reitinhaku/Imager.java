@@ -1,7 +1,12 @@
 package tiralabra.reitinhaku;
 
 import algoritmit.Ahne;
+import algoritmit.Atahti;
 import tiralabra.tietorakenteet.Koordinaatti;
+import tiralabra.ui.Kuvantuotin;
+
+import java.util.Scanner;
+
 import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
@@ -12,7 +17,32 @@ import javax.swing.*;
 public class Imager {
       
     public static void main(String[] args) throws Exception{
-        new Imager();
+        Scanner scanner = new Scanner(System.in);
+        
+        
+        //260, 373, 600, 900
+        while(true) {
+            System.out.println("Aloituskoordinaatti x:");
+            int ax = Integer.parseInt(scanner.nextLine());
+            System.out.println("Aloituskoordinaatti y:");
+            int ay = Integer.parseInt(scanner.nextLine());
+            System.out.println("Kohdekoordinaatti x:");
+            int lx = Integer.parseInt(scanner.nextLine());
+            System.out.println("Kohdekoordinaatti y:");
+            int ly = Integer.parseInt(scanner.nextLine());
+            System.out.println("GBF vai A*");
+            String algo = scanner.nextLine();
+            if(algo.equals("GBF")) {
+                System.out.println("Greedy Best First");
+            } else if(algo.equals("A*")){
+                System.out.println("A*");
+            } else {
+                System.out.println("Syöte epäselvä, valitaan A*");
+            }
+           new Kuvantuotin(ax, ay, lx, ly, algo);
+        }
+        
+        
   }
         
  public Imager() throws Exception
@@ -33,9 +63,10 @@ public class Imager {
         KuvaProsessori kp = new KuvaProsessori(image);
         kp.kuvastaPikseleiksi();
         //kp.maalaaVarilla();
-        Ahne gbf = new Ahne(260, 373, 601,900, kp.getPikselit());
-        gbf.etsiReitti();
-        kp.setPikselit(gbf.piirraReitti());
+        //Ahne gbf = new Ahne(260, 373, 601,900, kp.getPikselit());
+        //gbf.etsiReitti();
+        Atahti star = new Atahti(260,373,601,900,kp.getPikselit());
+        kp.setPikselit(star.piirraReitti());
           
         kp.pikseleistaKuvaksi();
         

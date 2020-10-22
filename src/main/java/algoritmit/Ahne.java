@@ -50,13 +50,13 @@ public class Ahne {
             if(kasiteltava.getSijainti().getX() == this.kohdeX && kasiteltava.getSijainti().getY() == this.kohdeY) {
                 break;
             }
-            
+            Koordinaatti sij = kasiteltava.getSijainti();
+            //System.out.println("x: "+sij.getX()+ " y: "+ sij.getY());
             PrioSolmu[] naapurit = haeNaapurit(kasiteltava);
             
             for(int i = 0; i < naapurit.length; i++) {                
                 PrioSolmu naapuri = naapurit[i];
                 if(naapuri != null) {
-                    //System.out.println(naapuri.getSijainti().getX()+" "+naapuri.getSijainti().getY() +" - "+this.siEd.keySet());
                     int naapuriX = naapuri.getSijainti().getX();
                     int naapuriY = naapuri.getSijainti().getY();
                     if(kuljettu[naapuriY][naapuriX] == null) {
@@ -74,29 +74,24 @@ public class Ahne {
         Koordinaatti tama = kasiteltava.getSijainti();
         int tamaX = tama.getX();
         int tamaY = tama.getY();
-        System.out.println("TamaX: "+ tamaX + " tamaY: "+ tamaY);
         int i = 0;
         if(kartta[tamaY][tamaX + 1] == harmaa) {
             PrioSolmu uus1 = new PrioSolmu(tamaX+1, tamaY, this.kohdeX, this.kohdeY);
-            System.out.println(i+" - "+uus1.getSijainti().getX()+" "+ uus1.getSijainti().getY() + "   kartta:" + kartta[tamaY][tamaX + 1]);
             pal[i] = uus1;
             i++;
         }
         if(kartta[tamaY + 1][tamaX] == harmaa) {
             PrioSolmu uus2 = new PrioSolmu(tamaX, tamaY+1, this.kohdeX, this.kohdeY);
-            System.out.println(i+" - "+uus2.getSijainti().getX()+" "+ uus2.getSijainti().getY()+ "   kartta:" +kartta[tamaY + 1][tamaX]);
             pal[i] = uus2;
             i++;
         }
         if(kartta[tamaY][tamaX - 1] == harmaa) {
             PrioSolmu uus3 = new PrioSolmu(tamaX-1, tamaY, this.kohdeX, this.kohdeY);
-            System.out.println(i+" - "+uus3.getSijainti().getX()+" "+ uus3.getSijainti().getY()+ "   kartta:" +kartta[tamaY][tamaX - 1]);
             pal[i] = uus3;
             i++;
         }
         if(kartta[tamaY - 1][tamaX] == harmaa) {
             PrioSolmu uus4 = new PrioSolmu(tamaX, tamaY-1, this.kohdeX, this.kohdeY);
-            System.out.println(i+" - "+uus4.getSijainti().getX()+" "+ uus4.getSijainti().getY()+ "   kartta:" +kartta[tamaY - 1][tamaX]);
             pal[i] = uus4;
             i++;
         }
@@ -108,12 +103,11 @@ public class Ahne {
         Koordinaatti kasiteltava = kuljettu[kohdeY][kohdeX];       
         kartta[kohdeY][kohdeX] = reittiVari;
         while(true) {
-            System.out.println("piirraReitti kasiteltava: "+ kasiteltava);
             if(kasiteltava.getX() == alkuX && kasiteltava.getY() == alkuY) {
                 kartta[alkuY][alkuX] = reittiVari;
                 break;
             }
-            kartta[kasiteltava.getY()][kasiteltava.getX()] = reittiVari;//OIKEA
+            kartta[kasiteltava.getY()][kasiteltava.getX()] = reittiVari;
             
             kartta[kasiteltava.getY()+1][kasiteltava.getX()+1] = reittiVari;
             kartta[kasiteltava.getY()-1][kasiteltava.getX()-1] = reittiVari;
@@ -128,29 +122,7 @@ public class Ahne {
             kartta[kasiteltava.getY()+1][kasiteltava.getX()-1] = reittiVari;
             
             kasiteltava = kuljettu[kasiteltava.getY()][kasiteltava.getX()];
-        }
-        
-        /*
-        for(Koordinaatti kord : siEd.keySet()) {
-            System.out.println(kord.getX() + "   "+ kord.getY());
-            kartta[kord.getY()][kord.getX()] = reittiVari;
-            
-            kartta[kord.getX()+1][kord.getX()+1] = reittiVari;
-            kartta[kord.getY()-1][kord.getX()-1] = reittiVari;
-            
-            kartta[kord.getY()+1][kord.getX()] = reittiVari;
-            kartta[kord.getY()][kord.getX()+1] = reittiVari;
-            
-            kartta[kord.getY()][kord.getX()-1] = reittiVari;           
-            kartta[kord.getY()-1][kord.getX()] = reittiVari;
-            
-            kartta[kord.getY()+1][kord.getX()-1] = reittiVari;
-            kartta[kord.getY()-1][kord.getX()+1] = reittiVari;
-            
-            kartta[kord.getY()][kord.getX()] = reittiVari;
-            kartta[kord.getY()][kord.getX()] = reittiVari;
-        }*/
-        
+        }        
         return kartta;
     }
     
