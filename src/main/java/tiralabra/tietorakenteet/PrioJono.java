@@ -1,18 +1,33 @@
 package tiralabra.tietorakenteet;
 
-
+/**
+ * Prioriteettijonon implementaatio
+ * Käyttää PrioSolmu luokan objekteja listan elementteinä
+ * Prioriteettijärjestys toimii pienin ensin perusteella
+ * @author toni_
+ */
 public class PrioJono {
+    private PrioSolmu eka,vika;
+    private int pituus;
+    private int kohdeX, kohdeY;
     
-    PrioSolmu eka,vika;
-    int pituus;
-    int kohdeX, kohdeY;
-    
+    /**
+     * Konstruktori jossa jonolle annetaan myös kohdekoordinaatit - prioriteetin
+     * laskeminen GBF algoritmissa puhtaasti etäisyyden laskemista, joten prioriteetin
+     * eli etäisyyden laskeminen on upotettu luokkaan.
+     * @param kohdeX
+     * @param kohdeY
+     */
     public PrioJono(int kohdeX, int kohdeY){
         this.pituus = 0;
         this.kohdeX = kohdeX;
         this.kohdeY = kohdeY;
     }
     
+    /**
+     * Uuden solmun lisäys listaan.
+     * @param uusi
+     */
     public void lisaa(PrioSolmu uusi) {
         if(pituus == 0) {
             uusi.setEnnen(null);
@@ -25,14 +40,13 @@ public class PrioJono {
             if(ennen == uusi) { //uusi solmu jonon ensimmäiseksi
                PrioSolmu vanhaEka = eka;
                vanhaEka.setEnnen(uusi);
-               uusi.setJalkeen(vanhaEka);               
-               this.eka = uusi;               
-            } else { 
+               uusi.setJalkeen(vanhaEka);
+               this.eka = uusi;
+            } else {
                 if(ennen.getJalkeen()==null) {//uusi solmu jonon perälle
                     uusi.setEnnen(ennen);
                     ennen.setJalkeen(uusi);
-                    this.vika = uusi;
-                    
+                    this.vika = uusi;                   
                 } else {//uusi solmu jonon keskelle
                     PrioSolmu jalk = ennen.getJalkeen();
                     ennen.setJalkeen(uusi);
@@ -41,7 +55,6 @@ public class PrioJono {
                     uusi.setJalkeen(jalk);
                 }
             }
-            
             pituus++;
         }
     }
@@ -56,8 +69,8 @@ public class PrioJono {
             return uusi;
         } else if(pituus==1) {
             return this.eka;
-        }      
-        PrioSolmu vert = eka.getJalkeen();        
+        }
+        PrioSolmu vert = eka.getJalkeen();
         for(int i=0;i<this.pituus;i++) {
             if(vert.getEtaisyys() >= uusEtaisyys) {
                 return vert.getEnnen();
@@ -67,39 +80,50 @@ public class PrioJono {
                 } else {
                     vert = vert.getJalkeen();
                 }
-            }
-            
+            } 
         }
         return uusi;
     }
-    
-    //laita eka ja vika viitteet kuntoon
+
+    /**
+     * Poppaa ensimmäisen priosolmun jonosta
+     * @return
+     */
     public PrioSolmu ekaPois() {
-        if(pituus == 1) {                  
+        if(pituus == 1) {
             pituus--;
             PrioSolmu ls = this.eka;
             this.eka = null;
             this.vika = null;
-            return ls;    
+            return ls;
         } else if (pituus > 1) {
             this.eka.getJalkeen().setEnnen(null); //uusi jonoon pää viittaa nulliin
             pituus--;
             PrioSolmu pal = this.eka;
-            this.eka = eka.getJalkeen(); //jonoon päätyviite kuntoon
+            this.eka = eka.getJalkeen(); //jonon päätyviite kuntoon
             return pal;
         } else {
             return null;
         }
     }
     
+    /**
+     * @return
+     */
     public PrioSolmu getEka() {
         return eka;
     }
     
+    /**
+     * @return
+     */
     public int getPituus() {
         return pituus;
     }
     
+    /**
+     * @return
+     */
     public boolean onTyhja() {
         if(pituus == 0) {
             return true;
@@ -108,6 +132,13 @@ public class PrioJono {
         }
     }
     
+    /**
+     * Etäisyyden laskemista annettujen koordinaattien ja kohteen välillä. 
+     * Kohde on annettu konstruktorissa.
+     * @param x
+     * @param y
+     * @return
+     */
     public int etaisyys(int x, int y) {
         int xOsa = kohdeX - x;
         int yOsa = kohdeY - y;
@@ -115,10 +146,16 @@ public class PrioJono {
         return etaisyys;
     }
 
+    /**
+     * @return
+     */
     public PrioSolmu getVika() {
         return vika;
     }
 
+    /**
+     * @param vika
+     */
     public void setVika(PrioSolmu vika) {
         this.vika = vika;
     }

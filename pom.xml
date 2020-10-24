@@ -61,8 +61,23 @@
                     <detectJavaApiLink>false</detectJavaApiLink>
                 </configuration>
             </plugin>
+            <plugin>
+                <!-- Build an executable JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                  <archive>
+                    <manifest>
+                      <addClasspath>true</addClasspath>  
+                      <classpathPrefix>lib/</classpathPrefix>                    
+                      <mainClass>reitinhaku.tiralabra.reitinhaku.Tekstikayttis</mainClass>
+                    </manifest>
+                  </archive>
+                </configuration>
+            </plugin>
    	</plugins>
          
     </build>
-
+    <name>reitinhaku</name>
 </project>

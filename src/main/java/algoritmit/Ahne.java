@@ -4,22 +4,20 @@ import tiralabra.tietorakenteet.PrioSolmu;
 import tiralabra.tietorakenteet.Koordinaatti;
 /**
  * Greedy Best First algoritmi
- * 
  */
-public class Ahne {
-    
-    int kohdeX;
-    int kohdeY;       
-    int alkuX;
-    int alkuY;
-    Koordinaatti alku;
-    Koordinaatti kohde;
-    PrioJono pj;
-    Koordinaatti[][] kuljettu; //mistä koordinaatista tultu kuhunkin koordinaattiin 
-    int reittiVari = -1690619; //määrittää kartalle piirrettävän reitin värin RGB
-    int harmaa = -1710619; //määrittää kulkukelpoisuuden
-    int reitinPituus;
-    int[][] kartta;
+public class Ahne {       
+    private int kohdeX;
+    private int kohdeY;       
+    private int alkuX;
+    private int alkuY;
+    private Koordinaatti alku;
+    private Koordinaatti kohde;
+    private PrioJono pj;
+    private Koordinaatti[][] kuljettu; //mistä koordinaatista tultu kuhunkin koordinaattiin 
+    private int reittiVari = -1690619; //määrittää kartalle piirrettävän reitin värin RGB
+    private int harmaa = -1710619; //määrittää kulkukelpoisuuden
+    private int reitinPituus;
+    private int[][] kartta;
     
     /**
      *  Konstruktori
@@ -28,22 +26,19 @@ public class Ahne {
      * @param kohdeX Kohdekoordinaatin X arvo
      * @param kohdeY Kohdekoordinaatin Y arvo
      * @param kartta sisältää väri-informaation per kordiinaatti - käytetään
-     *              kulkukelpoisuuden arvioimiseen 
+     * kulkukelpoisuuden arvioimiseen 
      */
     public Ahne(int alkuX, int alkuY, int kohdeX, int kohdeY, int[][] kartta) {
         this.kohdeX = kohdeX;
         this.kohdeY = kohdeY;
         this.alkuX = alkuX;
-        this.alkuY = alkuY;   
-        
+        this.alkuY = alkuY;           
         this.alku = new Koordinaatti(alkuX, alkuY);
-        this.kohde = new Koordinaatti(kohdeX, kohdeY);
-        
+        this.kohde = new Koordinaatti(kohdeX, kohdeY);        
         PrioJono pj = new PrioJono(this.kohdeX, this.kohdeY);
         this.pj = pj;
         PrioSolmu aloitus = new PrioSolmu(this.alku, this.kohde);
-        pj.lisaa(aloitus);  
-            
+        pj.lisaa(aloitus);       
         this.kartta = kartta;
         kuljettu = new Koordinaatti[kartta.length][kartta[0].length];
         kuljettu[alkuY][alkuX] = this.alku;// tehdään myöhemmin terminaatioehto tätä hyväksikäyttäen  
@@ -60,8 +55,7 @@ public class Ahne {
                 break;
             }
             Koordinaatti sij = kasiteltava.getSijainti();
-            PrioSolmu[] naapurit = haeNaapurit(kasiteltava);
-            
+            PrioSolmu[] naapurit = haeNaapurit(kasiteltava);           
             for(int i = 0; i < naapurit.length; i++) {                
                 PrioSolmu naapuri = naapurit[i];
                 if(naapuri != null) {
@@ -73,7 +67,6 @@ public class Ahne {
                     }
                 }
             }
-            
         }
     }
     
@@ -109,7 +102,6 @@ public class Ahne {
             pal[i] = uus4;
             i++;
         }
-
         return pal;
     }
     
@@ -128,20 +120,7 @@ public class Ahne {
                 kartta[alkuY][alkuX] = reittiVari;
                 break;
             }
-            kartta[kasiteltava.getY()][kasiteltava.getX()] = reittiVari;
-            
-            //kartta[kasiteltava.getY()+1][kasiteltava.getX()+1] = reittiVari;
-            //kartta[kasiteltava.getY()-1][kasiteltava.getX()-1] = reittiVari;
-            
-            //kartta[kasiteltava.getY()+1][kasiteltava.getX()] = reittiVari;
-            //kartta[kasiteltava.getY()][kasiteltava.getX()+1] = reittiVari;
-            
-            //kartta[kasiteltava.getY()][kasiteltava.getX()+1] = reittiVari;
-            //kartta[kasiteltava.getY()+1][kasiteltava.getX()] = reittiVari;
-            
-            //kartta[kasiteltava.getY()-1][kasiteltava.getX()+1] = reittiVari;
-            //kartta[kasiteltava.getY()+1][kasiteltava.getX()-1] = reittiVari;
-            
+            kartta[kasiteltava.getY()][kasiteltava.getX()] = reittiVari;           
             kasiteltava = kuljettu[kasiteltava.getY()][kasiteltava.getX()];
             nodeMaara++;
         }
@@ -150,10 +129,9 @@ public class Ahne {
     }
 
     /**
-     *
      * @return palauttaa kuljetun reitin pituuden
      */
     public int getReitinPituus() {
         return reitinPituus;
-    }  
+    }
 }

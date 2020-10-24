@@ -2,14 +2,19 @@ Määrittelydokumentti
 -----------------------v0.2---------------------------
 Reitinhakualgoritmi MovingAI Labin karttaan.
 
-Käytettävät algoritmit, tavoitteena greedt best first search ja A*. 
+Käytettävät algoritmit ja tietorakenteet:
+A* ja GBF. Tietorakenteina on lähinnä prioriteettijono ja erimuotoiset listat. 
+GBF määrittää haluttavuuden etäisyytenä kohteesta.
 
 Ratkaistava ongelma: reitinhaku pikseleitten perusteella rakennetussa ruudukossa. A* valinta perustuu sen standardiuteen ts. se on käsittääkseni yleinen ja yleisesti hyväksi koettu.
 Greedy Best First vaikutti toimivan ainakin linkatun sivuston visualisaatiossa erityisen hyvin kaupunkiympäristössä. Se kykeni muutaman sadan noden reitteihin, siinä missä muilla meni selkeästi pidempiä aikoja.
 
-Syötteet ja käyttö: MovingAI labin karttoja. Valitaan aluksi yksi ja luodaan myöhemmin mahdollisuus valita kartta. Aloitetaan komentorivillä tms tekstipohjaisella käyttöliittymällä, johon käyttäjä asettaa koordinaatit. Myöhemmin tämä voidaan päivittää siten, että koordinaatit voi osoittaa kuvasta. Lopputulos näytetään päivitettynä kuvana johon on maalattu reitti pisteitten välillä.
+Syötteet ja käyttö: 
+Ohjelma sisältää muutaman kartan. MovingAILabin png-kartat toimivat. Käyttö tapahtuu tekstipohjaisella käyttöliittymällä.
 
-Aika-ja tilavaativuudet
+Aika-ja tilavaativuudet:
+A* aikavaativuuden pitäisi olla O((k + n) log n), n = nodejen määrä, k = määrä (ohjelmamme tapauksessa 4 per node).
+
 
 Lähteet: https://en.wikipedia.org/wiki/Pairing_function#Cantor_pairing_function, https://www.redblobgames.com/pathfinding/a-star/introduction.html
 

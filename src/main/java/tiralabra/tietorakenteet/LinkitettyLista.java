@@ -1,15 +1,23 @@
 package tiralabra.tietorakenteet;
 
-
+/**
+ * Linkitettylista implementaatio
+ */
 public class LinkitettyLista {
+    private ListaSolmu eka,vika;
+    private int pituus;
     
-    ListaSolmu eka,vika;
-    int pituus;
-    
+    /**
+     * Konstruktori
+     */
     public LinkitettyLista() {
         this.pituus = 0;
     }
     
+    /**
+     * Lisää uuden solmun listalle
+     * @param uusi
+     */
     public void lisaa(ListaSolmu uusi) {
         if(pituus == 0) {
             uusi.setEnnen(null);
@@ -26,8 +34,11 @@ public class LinkitettyLista {
         }
     }
     
+    /**
+     * @return Poppaa ensimmäisen solmun
+     */
     public ListaSolmu ekaPois() {
-        if(pituus == 1) {                  
+        if(pituus == 1) {
             pituus--;
             ListaSolmu ls = eka;
             this.eka = eka.getJalkeen();
@@ -43,14 +54,23 @@ public class LinkitettyLista {
         }
     }
     
+    /**
+     * @return Palauttaa ensimmäisen solmun poistamatta sitä
+     */
     public ListaSolmu getEka() {
         return eka;
     }
     
+    /**
+     * @return Palauttaa listan pituuden
+     */
     public int getPituus() {
         return pituus;
     }
     
+    /** 
+     * @return
+     */
     public boolean onTyhja() {
         if(pituus == 0) {
             return true;

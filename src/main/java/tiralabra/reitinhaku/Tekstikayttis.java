@@ -1,22 +1,21 @@
 package tiralabra.reitinhaku;
 
-import algoritmit.Atahti;
 import tiralabra.ui.Kuvantuotin;
 
 import java.util.Scanner;
 
-import java.awt.*;
-import java.awt.image.*;
-import java.io.*;
-import javax.imageio.*;
-import javax.swing.*;
 
-
-public class Imager {
+/**
+ * Ohjelman käyttöliittymä
+ */
+public class Tekstikayttis {
       
+    /**
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception{
-        Scanner scanner = new Scanner(System.in);
-        
+        Scanner scanner = new Scanner(System.in);        
         System.out.println("Algoritmivertailu = 0, vai visuaalinen reitti = 1? ");
         int vrt = Integer.parseInt(scanner.nextLine());
         if(vrt == 0) {
@@ -55,10 +54,7 @@ public class Imager {
             kv.ajaYksi();
         } else {
             System.out.println("Epäselvä syöte");
-        }
-        
-        
-        
+        }       
   }
         
 }
