@@ -28,6 +28,13 @@ public class PrioSolmu {
         this.ennen = null;
         this.jalkeen = null;
     }
+    
+    public PrioSolmu(int omaX, int omaY, int etaisyys) {
+        this.x = omaX;
+        this.y = omaY;
+        this.sijainti = new Koordinaatti(omaX, omaY);
+        this.etaisyys = etaisyys;
+    }
 
     public Koordinaatti getSijainti() {
         return sijainti;

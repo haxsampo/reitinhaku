@@ -1,8 +1,6 @@
 package tiralabra.reitinhaku;
 
-import algoritmit.Ahne;
 import algoritmit.Atahti;
-import tiralabra.tietorakenteet.Koordinaatti;
 import tiralabra.ui.Kuvantuotin;
 
 import java.util.Scanner;
@@ -19,9 +17,22 @@ public class Imager {
     public static void main(String[] args) throws Exception{
         Scanner scanner = new Scanner(System.in);
         
-        
-        //260, 373, 600, 900
-        while(true) {
+        System.out.println("Algoritmivertailu = 0, vai visuaalinen reitti = 1? ");
+        int vrt = Integer.parseInt(scanner.nextLine());
+        if(vrt == 0) {
+            System.out.println("Muu kuin testikuva? 0 = ei, 1=kyllä");
+            int testikuvaVast = Integer.parseInt(scanner.nextLine());
+            AlgoVertailu algVrt = new AlgoVertailu();
+            if(testikuvaVast==1) {
+                System.out.println("Anna polku kuvaan:");
+                String path = scanner.nextLine();  
+                algVrt.setPath(path);
+            } else {
+                System.out.println("Käytetään testikuvaa");
+            }
+            algVrt.haeKuva();
+            algVrt.yksiVrt();
+        } else if(vrt ==1) {
             System.out.println("Aloituskoordinaatti x:");
             int ax = Integer.parseInt(scanner.nextLine());
             System.out.println("Aloituskoordinaatti y:");
@@ -33,55 +44,21 @@ public class Imager {
             System.out.println("GBF vai A*");
             String algo = scanner.nextLine();
             if(algo.equals("GBF")) {
-                System.out.println("Greedy Best First");
+                System.out.println("GBF valittu");
             } else if(algo.equals("A*")){
-                System.out.println("A*");
+                System.out.println("A* valittu");
             } else {
                 System.out.println("Syöte epäselvä, valitaan A*");
+                algo = "A*";
             }
-           new Kuvantuotin(ax, ay, lx, ly, algo);
+            Kuvantuotin kv = new Kuvantuotin(ax, ay, lx, ly, algo);
+            kv.ajaYksi();
+        } else {
+            System.out.println("Epäselvä syöte");
         }
+        
         
         
   }
         
- public Imager() throws Exception
-  {
-    SwingUtilities.invokeLater(new Runnable() {
-      public void run() {
-        JFrame editorFrame = new JFrame("Image Demo");
-        editorFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        
-        BufferedImage image = null;
-        try{
-          image = ImageIO.read(new File("C:/Users/toni_/Koulu/tiralabra/reitinhaku/src/main/java/tiralabra/reitinhaku/bootybay.png"));
-        }
-        catch (Exception e){
-          e.printStackTrace();
-          System.exit(1);
-        }
-        KuvaProsessori kp = new KuvaProsessori(image);
-        kp.kuvastaPikseleiksi();
-        //kp.maalaaVarilla();
-        //Ahne gbf = new Ahne(260, 373, 601,900, kp.getPikselit());
-        //gbf.etsiReitti();
-        Atahti star = new Atahti(260,373,601,900,kp.getPikselit());
-        kp.setPikselit(star.piirraReitti());
-          
-        kp.pikseleistaKuvaksi();
-        
-        image = kp.getPikseliKuva();
-        
-        
-        ImageIcon imageIcon = new ImageIcon(image);
-        JLabel jLabel = new JLabel();
-        jLabel.setIcon(imageIcon);
-        editorFrame.getContentPane().add(jLabel, BorderLayout.CENTER);
-
-        editorFrame.pack();
-        editorFrame.setLocationRelativeTo(null);
-        editorFrame.setVisible(true);
-      }
-    });
-  }
 }

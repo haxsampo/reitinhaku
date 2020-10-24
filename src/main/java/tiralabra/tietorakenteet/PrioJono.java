@@ -1,7 +1,5 @@
 package tiralabra.tietorakenteet;
 
-import java.util.HashSet;
-
 
 public class PrioJono {
     

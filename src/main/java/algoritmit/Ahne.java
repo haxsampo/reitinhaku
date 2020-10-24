@@ -2,7 +2,6 @@
 package algoritmit;
 
 
-import java.util.HashMap;
 import tiralabra.tietorakenteet.PrioJono;
 import tiralabra.tietorakenteet.PrioSolmu;
 import tiralabra.tietorakenteet.Koordinaatti;
@@ -19,6 +18,8 @@ public class Ahne {
     Koordinaatti[][] kuljettu; //mistä koordinaatista tultu kuhunkin koordinaattiin 
     int reittiVari = -1690619;
     int harmaa = -1710619;
+    
+    int reitinPituus;
     
     int[][] kartta;
     
@@ -42,16 +43,13 @@ public class Ahne {
     }
     
     public void etsiReitti() {
+        this.reitinPituus = 0;
         while(pj.getPituus() > 0) {
             PrioSolmu kasiteltava = pj.ekaPois();
             if(kasiteltava.getSijainti().equals( this.kohde)) {
                 break;
             }
-            if(kasiteltava.getSijainti().getX() == this.kohdeX && kasiteltava.getSijainti().getY() == this.kohdeY) {
-                break;
-            }
             Koordinaatti sij = kasiteltava.getSijainti();
-            //System.out.println("x: "+sij.getX()+ " y: "+ sij.getY());
             PrioSolmu[] naapurit = haeNaapurit(kasiteltava);
             
             for(int i = 0; i < naapurit.length; i++) {                
@@ -102,6 +100,7 @@ public class Ahne {
     public int[][] piirraReitti() {
         Koordinaatti kasiteltava = kuljettu[kohdeY][kohdeX];       
         kartta[kohdeY][kohdeX] = reittiVari;
+        int nodeMaara = 1;
         while(true) {
             if(kasiteltava.getX() == alkuX && kasiteltava.getY() == alkuY) {
                 kartta[alkuY][alkuX] = reittiVari;
@@ -109,21 +108,31 @@ public class Ahne {
             }
             kartta[kasiteltava.getY()][kasiteltava.getX()] = reittiVari;
             
-            kartta[kasiteltava.getY()+1][kasiteltava.getX()+1] = reittiVari;
-            kartta[kasiteltava.getY()-1][kasiteltava.getX()-1] = reittiVari;
+            //kartta[kasiteltava.getY()+1][kasiteltava.getX()+1] = reittiVari;
+            //kartta[kasiteltava.getY()-1][kasiteltava.getX()-1] = reittiVari;
             
-            kartta[kasiteltava.getY()+1][kasiteltava.getX()] = reittiVari;
-            kartta[kasiteltava.getY()][kasiteltava.getX()+1] = reittiVari;
+            //kartta[kasiteltava.getY()+1][kasiteltava.getX()] = reittiVari;
+            //kartta[kasiteltava.getY()][kasiteltava.getX()+1] = reittiVari;
             
-            kartta[kasiteltava.getY()][kasiteltava.getX()+1] = reittiVari;
-            kartta[kasiteltava.getY()+1][kasiteltava.getX()] = reittiVari;
+            //kartta[kasiteltava.getY()][kasiteltava.getX()+1] = reittiVari;
+            //kartta[kasiteltava.getY()+1][kasiteltava.getX()] = reittiVari;
             
-            kartta[kasiteltava.getY()-1][kasiteltava.getX()+1] = reittiVari;
-            kartta[kasiteltava.getY()+1][kasiteltava.getX()-1] = reittiVari;
+            //kartta[kasiteltava.getY()-1][kasiteltava.getX()+1] = reittiVari;
+            //kartta[kasiteltava.getY()+1][kasiteltava.getX()-1] = reittiVari;
             
             kasiteltava = kuljettu[kasiteltava.getY()][kasiteltava.getX()];
-        }        
+            nodeMaara++;
+        }
+        this.reitinPituus = nodeMaara;
         return kartta;
+    }
+
+    public int getReitinPituus() {
+        return reitinPituus;
+    }
+
+    public void setReitinPituus(int reitinPituus) {
+        this.reitinPituus = reitinPituus;
     }
     
     

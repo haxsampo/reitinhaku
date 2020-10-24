@@ -8,20 +8,30 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.*;
 import javax.swing.*;
+import tiralabra.reitinhaku.Kellottaja;
 import tiralabra.reitinhaku.KuvaProsessori;
 import tiralabra.tietorakenteet.Koordinaatti;
 
 public class Kuvantuotin {
     
+    int aX;
+    int aY;
+    int lX;
+    int lY;
+    String valittuAlgo;
+    
     public Kuvantuotin(int alkuX, int alkuY, int loppuX, int loppuY, String algo) throws Exception{
+        this.aX = alkuX;
+        this.aY = alkuY;
+        this.lX = loppuX;
+        this.lY = loppuY;
+        this.valittuAlgo = algo;
+    }
+    
+    public void ajaYksi() {
         SwingUtilities.invokeLater(new Runnable() {
-      public void run() {
-        int aX = alkuX;
-        int aY = alkuY;
-        int lX = loppuX;
-        int lY = loppuY;
-          
-        JFrame editorFrame = new JFrame("Image Demo");
+      public void run() {     
+        JFrame editorFrame = new JFrame("Reitinetsin");
         editorFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         BufferedImage image = null;
@@ -34,7 +44,6 @@ public class Kuvantuotin {
         }
         KuvaProsessori kp = new KuvaProsessori(image);
         kp.kuvastaPikseleiksi();
-        //kp.maalaaVarilla();
         //260, 373 601,900
         if(kp.getLeveys() < aX || kp.getKorkeus() < aY) {
             System.out.println("Aloituskoordinaatit kuvan ulkopuolella");
@@ -52,8 +61,8 @@ public class Kuvantuotin {
         }
         
         int harmaa = -1710619;
-        int alkuKordVari = kp.getPikselit()[alkuY][alkuX];
-        int kohdeKordVari = kp.getPikselit()[loppuY][loppuX];
+        int alkuKordVari = kp.getPikselit()[aY][aX];
+        int kohdeKordVari = kp.getPikselit()[lY][lX];
         if(alkuKordVari!=harmaa) {
             System.out.println("Aloituskoordinaatit eivät ole kuljettavalla alueella");
             Koordinaatti alku = kp.palautaSatunnainen();
@@ -69,13 +78,21 @@ public class Kuvantuotin {
             System.out.println("Uusi satunnainen kohdekoordinaatti "+kohde);
         }
         
-        if(algo.equals("GBF")) {
+        Kellottaja kello = new Kellottaja();
+        
+        if(valittuAlgo.equals("GBF")) {
             Ahne gbf = new Ahne(aX, aY, lX, lY, kp.getPikselit());
+            kello.aloita();
             gbf.etsiReitti();
+            kello.lopeta();
+            System.out.println(kello.kuluma());
             kp.setPikselit(gbf.piirraReitti());
         } else {
             Atahti star = new Atahti(aX, aY, lX,lY, kp.getPikselit());
+            kello.aloita();
             star.etsiReitti();
+            kello.lopeta();
+            System.out.println(kello.kuluma());
             kp.setPikselit(star.piirraReitti());
         }
         

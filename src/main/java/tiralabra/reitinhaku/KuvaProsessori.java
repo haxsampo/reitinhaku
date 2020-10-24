@@ -24,7 +24,7 @@ public class KuvaProsessori {
     public KuvaProsessori(BufferedImage kuva) {
         this.kuva = kuva;
         pikselit = new int[kuva.getHeight()][kuva.getWidth()];
-        System.out.println("KuvaprosessoriKonstruktori korkeus_leveys "+kuva.getHeight() + "_"+kuva.getWidth());
+        //System.out.println("KuvaprosessoriKonstruktori korkeus_leveys "+kuva.getHeight() + "_"+kuva.getWidth());
         this.kulkukelpoiset = new ArrayList();
     }
     
@@ -111,13 +111,33 @@ public class KuvaProsessori {
     }
     
     public Koordinaatti palautaSatunnainen() {
-        return kulkukelpoiset.get(getRandomNumber(0,kulkukelpoiset.size()-1));
+        return kulkukelpoiset.get(getRandomNumber(kulkukelpoiset.size()-1,0));
         
     }
     
-    public int getRandomNumber(int min, int max) {
-    return (int) ((Math.random() * (max - min)) + min);
-}
+    public int getRandomNumber(int max, int min) {
+        //return (int) System.currentTimeMillis() % max;
+        return (int) ((Math.random() * (max - min)) + min);
+    }
+    
+    public void setHarmaa(int harmaa) {
+        this.harmaa = harmaa;
+    }
+    
+    public int getHarmaa() {
+        return this.harmaa;
+    }
+    
+    public int[][] kopioiArray(int[][] kopioitava) {
+        int[][] uusi = new int[kopioitava.length][kopioitava[0].length];
+        
+        for(int y=0;y<kopioitava.length;y++) {
+            for(int x=0;x<kopioitava[0].length;x++) {
+                uusi[y][x] = kopioitava[y][x];
+            }
+        }
+        return uusi;
+    }
     
 }
 
