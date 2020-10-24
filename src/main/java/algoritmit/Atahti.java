@@ -5,7 +5,10 @@ import tiralabra.tietorakenteet.Koordinaatti;
 import tiralabra.tietorakenteet.PrioJono;
 import tiralabra.tietorakenteet.PrioSolmu;
 
-
+/**
+ * 
+ * Sisältää A* algoritmin
+ */
 public class Atahti {
     
     int kohdeX;
@@ -20,7 +23,7 @@ public class Atahti {
     
     PrioJono pj;
     int[][] cost_so_far;
-    Koordinaatti[][] came_from;
+    Koordinaatti[][] kuljettu;
     
     int reitinPituus;
     
@@ -28,6 +31,15 @@ public class Atahti {
     int reittiVari = -1690619;
     int harmaa = -1710619;
     
+    /**
+     * Konstruktori
+     * @param alkuX Aloituskoordinaatin X arvo
+     * @param alkuY Aloituskoordinaatin Y arvo
+     * @param kohdeX Kohdekoordinaatin X arvo
+     * @param kohdeY Kohdekoordinaatin Y arvo
+     * @param kartta sisältää väri-informaation per kordiinaatti - käytetään
+     *              kulkukelpoisuuden arvioimiseen
+     */
     public Atahti(int alkuX, int alkuY, int kohdeX, int kohdeY, int[][] kartta) {
         this.kohdeX = kohdeX;
         this.kohdeY = kohdeY;
@@ -47,10 +59,16 @@ public class Atahti {
         alkuKord.setVari(reittiVari);
         alkuKord.setHinta(0);
         this.variKartta = kartta;
-        this.came_from = new Koordinaatti[kartta.length][kartta[0].length];
+        this.kuljettu = new Koordinaatti[kartta.length][kartta[0].length];
         this.cost_so_far = new int[kartta.length][kartta[0].length];
     }
     
+    /**
+     * Etsii reitin ja tallentaa sen kuljettu[][] siten, että kussakin x,y sijainnissa
+     * on koordinaattiobjekti jonka arvot vastaavat sitä sijaintia josta kyseiseen sijaintiin
+     * on saavuttu. Esim jos sijaintiin (0,1) on saavuttu koordinaateista (0,0), niin
+     * kuljettu[1][0]:ssa sijaitsee koordinaattiobjekti jonka x=0 ja y=0.
+     */
     public void etsiReitti() {
         this.reitinPituus = 0;
         while(pj.getPituus() >0) {
@@ -59,7 +77,6 @@ public class Atahti {
                 break;
             }
             Koordinaatti sij = kasiteltava.getSijainti();
-            //System.out.println("x: "+sij.getX()+ " y: "+ sij.getY());
             PrioSolmu[] naapurit = haeNaapurit(kasiteltava);
             
             for(int i = 0; i < naapurit.length;i++) {
@@ -79,7 +96,7 @@ public class Atahti {
                         pj.lisaa(uusPrio);
                         if(naapuriY == kohdeY && naapuriX == kohdeX) {
                         }
-                        came_from[naapuriY][naapuriX] = sij;
+                        kuljettu[naapuriY][naapuriX] = sij;
                     }
                 
                 } 
@@ -87,6 +104,12 @@ public class Atahti {
         }
     }
     
+    /**
+     *
+     * @param kasiteltava hakee solmulle naapurit ylempää, alempaa, oikealta ja vasemmalta
+     * @return palauttaa vakiopituisen listan nulleja(jos koordinaatti ei kulkukelpoinen
+     *         tai solmun jos kulkukelpoinen
+     */
     public PrioSolmu[] haeNaapurit(PrioSolmu kasiteltava) {
         PrioSolmu[] pal = new PrioSolmu[4];
         Koordinaatti tama = kasiteltava.getSijainti();
@@ -126,8 +149,12 @@ public class Atahti {
         return pal;
     }
     
+    /**
+     * Piirtää karttaan kuljetun reitin
+     * @return palauttaa kartta[][]:n 
+     */
     public int[][] piirraReitti() {
-        Koordinaatti kasiteltava = came_from[kohdeY][kohdeX];
+        Koordinaatti kasiteltava = kuljettu[kohdeY][kohdeX];
         System.out.println(kasiteltava);
         variKartta[kohdeY][kohdeX] = reittiVari;
         int nodeMaara = 1;
@@ -152,7 +179,7 @@ public class Atahti {
             //variKartta[kasiteltava.getY()-1][kasiteltava.getX()+1] = reittiVari;
             //variKartta[kasiteltava.getY()+1][kasiteltava.getX()-1] = reittiVari;
             
-            kasiteltava = came_from[kasiteltava.getY()][kasiteltava.getX()];
+            kasiteltava = kuljettu[kasiteltava.getY()][kasiteltava.getX()];
             nodeMaara++;
         }        
         //System.out.println("Reitin pituus: "+nodeMaara);
@@ -160,6 +187,12 @@ public class Atahti {
         return variKartta;
     }
     
+    /**
+     * Laskee etäisyyden sijainnin ja kohteen välillä
+     * @param sij sijainti
+     * @param kohd kohde
+     * @return palauttaa etäisyyden
+     */
     public int etaisyys(Koordinaatti sij, Koordinaatti kohd) {
         
         int xOsa = kohd.getX() - sij.getX();
@@ -172,18 +205,26 @@ public class Atahti {
         return n > 0 ? n : -n;
     }
 
+    /**
+     * Palauttaa kuljetun reitin pituuden
+     * @return
+     */
     public int getReitinPituus() {
         return reitinPituus;
     }
 
-    public void setReitinPituus(int reitinPituus) {
-        this.reitinPituus = reitinPituus;
-    }
-
+    /**
+     *
+     * @return Palauttaa harmaa arvon
+     */
     public int getHarmaa() {
         return harmaa;
     }
 
+    /**
+     *
+     * @param harmaa Tahtoo RGB arvon, siten kun sen vaa kysyessä bufferedImagelta            
+     */
     public void setHarmaa(int harmaa) {
         this.harmaa = harmaa;
     }

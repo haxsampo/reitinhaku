@@ -1,11 +1,11 @@
-
 package algoritmit;
-
-
 import tiralabra.tietorakenteet.PrioJono;
 import tiralabra.tietorakenteet.PrioSolmu;
 import tiralabra.tietorakenteet.Koordinaatti;
-
+/**
+ * Greedy Best First algoritmi
+ * 
+ */
 public class Ahne {
     
     int kohdeX;
@@ -16,13 +16,20 @@ public class Ahne {
     Koordinaatti kohde;
     PrioJono pj;
     Koordinaatti[][] kuljettu; //mistä koordinaatista tultu kuhunkin koordinaattiin 
-    int reittiVari = -1690619;
-    int harmaa = -1710619;
-    
+    int reittiVari = -1690619; //määrittää kartalle piirrettävän reitin värin RGB
+    int harmaa = -1710619; //määrittää kulkukelpoisuuden
     int reitinPituus;
-    
     int[][] kartta;
     
+    /**
+     *  Konstruktori
+     * @param alkuX Aloituskoordinaatin X arvo
+     * @param alkuY Aloituskoordinaatin Y arvo
+     * @param kohdeX Kohdekoordinaatin X arvo
+     * @param kohdeY Kohdekoordinaatin Y arvo
+     * @param kartta sisältää väri-informaation per kordiinaatti - käytetään
+     *              kulkukelpoisuuden arvioimiseen 
+     */
     public Ahne(int alkuX, int alkuY, int kohdeX, int kohdeY, int[][] kartta) {
         this.kohdeX = kohdeX;
         this.kohdeY = kohdeY;
@@ -42,6 +49,9 @@ public class Ahne {
         kuljettu[alkuY][alkuX] = this.alku;// tehdään myöhemmin terminaatioehto tätä hyväksikäyttäen  
     }
     
+    /**
+     * Etsii reitin ja tallentaa sen kuljettu[][] listojen listaan
+     */
     public void etsiReitti() {
         this.reitinPituus = 0;
         while(pj.getPituus() > 0) {
@@ -67,6 +77,12 @@ public class Ahne {
         }
     }
     
+    /**
+     *
+     * @param kasiteltava hakee solmulle naapurit ylempää, alempaa, oikealta ja vasemmalta
+     * @return palauttaa vakiopituisen listan nulleja(jos koordinaatti ei kulkukelpoinen
+     *         tai solmun jos kulkukelpoinen
+     */
     public PrioSolmu[] haeNaapurit(PrioSolmu kasiteltava) {
         PrioSolmu[] pal = new PrioSolmu[4];
         Koordinaatti tama = kasiteltava.getSijainti();
@@ -97,6 +113,12 @@ public class Ahne {
         return pal;
     }
     
+    /**
+     * Piirtää kartalle oikeisiin positioihin reittivärillä kuljetun reitin
+     * reitin pituus lasketaan täällä
+     * @return palauttaa karttakoordinaatiston johon on piiretty kuljettu reitti
+     *          kartassa on muuten alkuperäisen väriarvot
+     */
     public int[][] piirraReitti() {
         Koordinaatti kasiteltava = kuljettu[kohdeY][kohdeX];       
         kartta[kohdeY][kohdeX] = reittiVari;
@@ -127,13 +149,11 @@ public class Ahne {
         return kartta;
     }
 
+    /**
+     *
+     * @return palauttaa kuljetun reitin pituuden
+     */
     public int getReitinPituus() {
         return reitinPituus;
-    }
-
-    public void setReitinPituus(int reitinPituus) {
-        this.reitinPituus = reitinPituus;
-    }
-    
-    
+    }  
 }
