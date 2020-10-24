@@ -2,7 +2,8 @@ package algoritmit;
 import tiralabra.tietorakenteet.PrioJono;
 import tiralabra.tietorakenteet.PrioSolmu;
 import tiralabra.tietorakenteet.Koordinaatti;
-/**
+
+/*
  * Greedy Best First algoritmi
  */
 public class Ahne {       
@@ -19,7 +20,7 @@ public class Ahne {
     private int reitinPituus;
     private int[][] kartta;
     
-    /**
+    /*
      *  Konstruktori
      * @param alkuX Aloituskoordinaatin X arvo
      * @param alkuY Aloituskoordinaatin Y arvo
@@ -44,7 +45,7 @@ public class Ahne {
         kuljettu[alkuY][alkuX] = this.alku;// tehdään myöhemmin terminaatioehto tätä hyväksikäyttäen  
     }
     
-    /**
+    /*
      * Etsii reitin ja tallentaa sen kuljettu[][] listojen listaan
      */
     public void etsiReitti() {
@@ -70,11 +71,10 @@ public class Ahne {
         }
     }
     
-    /**
-     *
+    /*
      * @param kasiteltava hakee solmulle naapurit ylempää, alempaa, oikealta ja vasemmalta
-     * @return palauttaa vakiopituisen listan nulleja(jos koordinaatti ei kulkukelpoinen
-     *         tai solmun jos kulkukelpoinen
+     * @return palauttaa vakiopituisen listan jonka elementit joko PrioSolmuja,
+     * tai null(jos naapuri ei ole kulkukelpoinen, värin perusteella).
      */
     public PrioSolmu[] haeNaapurit(PrioSolmu kasiteltava) {
         PrioSolmu[] pal = new PrioSolmu[4];
@@ -105,11 +105,11 @@ public class Ahne {
         return pal;
     }
     
-    /**
+    /*
      * Piirtää kartalle oikeisiin positioihin reittivärillä kuljetun reitin
      * reitin pituus lasketaan täällä
      * @return palauttaa karttakoordinaatiston johon on piiretty kuljettu reitti
-     *          kartassa on muuten alkuperäisen väriarvot
+     * kartassa on muuten alkuperäisen väriarvot
      */
     public int[][] piirraReitti() {
         Koordinaatti kasiteltava = kuljettu[kohdeY][kohdeX];       
@@ -128,7 +128,7 @@ public class Ahne {
         return kartta;
     }
 
-    /**
+    /*
      * @return palauttaa kuljetun reitin pituuden
      */
     public int getReitinPituus() {

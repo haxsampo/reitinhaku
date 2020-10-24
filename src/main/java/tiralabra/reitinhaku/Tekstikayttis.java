@@ -15,23 +15,20 @@ public class Tekstikayttis {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception{
-        Scanner scanner = new Scanner(System.in);        
-        System.out.println("Algoritmivertailu = 0, vai visuaalinen reitti = 1? ");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Yksittäinen algoritmivertailu = 0, laajempi algoritmivertailu=1, vai visuaalinen reitti = 2? ");
         int vrt = Integer.parseInt(scanner.nextLine());
+        System.out.println("Anna polku käytettävään kuvaan:");    
+        String path = scanner.nextLine();
         if(vrt == 0) {
-            System.out.println("Muu kuin testikuva? 0 = ei, 1=kyllä");
-            int testikuvaVast = Integer.parseInt(scanner.nextLine());
             AlgoVertailu algVrt = new AlgoVertailu();
-            if(testikuvaVast==1) {
-                System.out.println("Anna polku kuvaan:");
-                String path = scanner.nextLine();  
+            if(path.equals("booty")) {
+                path = "C:/Users/toni_/Koulu/tiralabra/reitinhaku/src/main/java/tiralabra/reitinhaku/bootybay.png";
                 algVrt.setPath(path);
-            } else {
-                System.out.println("Käytetään testikuvaa");
             }
             algVrt.haeKuva();
             algVrt.yksiVrt();
-        } else if(vrt ==1) {
+        } else if(vrt ==2) {
             System.out.println("Aloituskoordinaatti x:");
             int ax = Integer.parseInt(scanner.nextLine());
             System.out.println("Aloituskoordinaatti y:");
@@ -50,11 +47,19 @@ public class Tekstikayttis {
                 System.out.println("Syöte epäselvä, valitaan A*");
                 algo = "A*";
             }
-            Kuvantuotin kv = new Kuvantuotin(ax, ay, lx, ly, algo);
+            Kuvantuotin kv = new Kuvantuotin(ax, ay, lx, ly, algo, path);
             kv.ajaYksi();
+        } else if(vrt ==1){
+            AlgoVertailu algVrt = new AlgoVertailu();
+            if(path.equals("booty")) {
+                path = "C:/Users/toni_/Koulu/tiralabra/reitinhaku/src/main/java/tiralabra/reitinhaku/bootybay.png";
+                algVrt.setPath(path);
+                algVrt.haeKuva();
+                algVrt.sataVrt();
+            }
         } else {
             System.out.println("Epäselvä syöte");
-        }       
+        }
   }
         
 }

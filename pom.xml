@@ -71,7 +71,7 @@
                     <manifest>
                       <addClasspath>true</addClasspath>  
                       <classpathPrefix>lib/</classpathPrefix>                    
-                      <mainClass>reitinhaku.tiralabra.reitinhaku.Tekstikayttis</mainClass>
+                      <mainClass>tiralabra.reitinhaku.Tekstikayttis</mainClass>
                     </manifest>
                   </archive>
                 </configuration>

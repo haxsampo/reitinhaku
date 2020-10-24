@@ -20,6 +20,15 @@ public class Kuvantuotin {
     private int lX;
     private int lY;
     private String valittuAlgo;
+    private String path;
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
     
     /**
      * Konstruktori
@@ -30,12 +39,16 @@ public class Kuvantuotin {
      * @param algo mitä algoritmia käytetään
      * @throws Exception
      */
-    public Kuvantuotin(int alkuX, int alkuY, int loppuX, int loppuY, String algo) throws Exception{
+    public Kuvantuotin(int alkuX, int alkuY, int loppuX, int loppuY, String algo, String path) throws Exception{
         this.aX = alkuX;
         this.aY = alkuY;
         this.lX = loppuX;
         this.lY = loppuY;
         this.valittuAlgo = algo;
+        this.path = path;
+        if(path.equals("booty")){
+            this.path = "C:/Users/toni_/Koulu/tiralabra/reitinhaku/src/main/java/tiralabra/reitinhaku/bootybay.png";
+        }
     }
     
     /**
@@ -48,7 +61,7 @@ public class Kuvantuotin {
         editorFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);        
         BufferedImage image = null;
         try{
-          image = ImageIO.read(new File("C:/Users/toni_/Koulu/tiralabra/reitinhaku/src/main/java/tiralabra/reitinhaku/bootybay.png"));
+          image = ImageIO.read(new File(path));
         }
         catch (Exception e){
           e.printStackTrace();
@@ -87,21 +100,23 @@ public class Kuvantuotin {
             lY = kohde.getY();
             System.out.println("Uusi satunnainen kohdekoordinaatti "+kohde);
         }
-        Kellottaja kello = new Kellottaja();        
+        Kellottaja kello = new Kellottaja();
         if(valittuAlgo.equals("GBF")) {
             Ahne gbf = new Ahne(aX, aY, lX, lY, kp.getPikselit());
             kello.aloita();
             gbf.etsiReitti();
+            int[][] piksgbf = gbf.piirraReitti();
             kello.lopeta();
             System.out.println(kello.kuluma());
-            kp.setPikselit(gbf.piirraReitti());
+            kp.setPikselit(piksgbf);
         } else {
             Atahti star = new Atahti(aX, aY, lX,lY, kp.getPikselit());
             kello.aloita();
             star.etsiReitti();
+            int[][] piksUus = star.piirraReitti();
             kello.lopeta();
             System.out.println(kello.kuluma());
-            kp.setPikselit(star.piirraReitti());
+            kp.setPikselit(piksUus);
         }
         kp.pikseleistaKuvaksi();
         image = kp.getPikseliKuva();

@@ -16,7 +16,7 @@ public class TestPrioJono {
         
         uusi.lisaa(yksi);      
         assertEquals(uusi.getPituus(), 1);
-        
+
         uusi.lisaa(kaksi);
         assertEquals(uusi.getPituus(),2);
         
@@ -25,8 +25,7 @@ public class TestPrioJono {
     @Test
     public void etaisyysTest() {
         PrioJono uusi = new PrioJono(10,10);
-        assertEquals(uusi.etaisyys(5,5),10);
-        
+        assertEquals(uusi.etaisyys(5,5),10);       
         assertEquals(uusi.etaisyys(9,4),7);      
     }
     
@@ -111,8 +110,7 @@ public class TestPrioJono {
         uusi.ekaPois();
         assertEquals(uusi.ekaPois(), null);
         assertEquals(uusi.getEka(), null);
-        assertEquals(uusi.getVika(), null);
-        
+        assertEquals(uusi.getVika(), null);       
     }
     
     

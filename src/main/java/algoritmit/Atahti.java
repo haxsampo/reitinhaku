@@ -136,7 +136,6 @@ public class Atahti {
      */
     public int[][] piirraReitti() {
         Koordinaatti kasiteltava = kuljettu[kohdeY][kohdeX];
-        System.out.println(kasiteltava);
         variKartta[kohdeY][kohdeX] = reittiVari;
         int nodeMaara = 1;
         while(true) {

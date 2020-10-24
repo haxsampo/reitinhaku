@@ -136,7 +136,7 @@ public class KuvaProsessori {
         this.pikseliKuva = uusi;
     }
     
-    /**
+    /*
      * @return Palauttaa satunnaisen koordinaatin kulkukelpoisista koordinaateista
      */
     public Koordinaatti palautaSatunnainen() {
@@ -144,7 +144,7 @@ public class KuvaProsessori {
         
     }
     
-    /**
+    /*
      * @param max
      * @param min
      * @return Palauttaa satunnaisen arvon väliltä max-min
@@ -156,24 +156,24 @@ public class KuvaProsessori {
         return (int) ((Math.random() * (max - min)) + min);
     }
     
-    /**
+    /*
      * @param harmaa Asettaa väriarvon jota ohjelma käyttää kulkukelpoisena maastona
      */
     public void setHarmaa(int harmaa) {
         this.harmaa = harmaa;
     }
     
-    /**
+    /*
      * @return Palautaa väriarvon jota ohjelma käyttää kulkukelpoisena maastona
      */
     public int getHarmaa() {
         return this.harmaa;
     }
     
-    /**
+    /*
      * Kopioi annettavan int[][] arrayn 
      * @param kopioitava
-     * @return
+     * @return Palauttaa kopioidun listojen listan
      */
     public int[][] kopioiArray(int[][] kopioitava) {
         int[][] uusi = new int[kopioitava.length][kopioitava[0].length];        

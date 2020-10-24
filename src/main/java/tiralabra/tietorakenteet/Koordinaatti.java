@@ -1,7 +1,7 @@
 
 package tiralabra.tietorakenteet;
 
-/**
+/*
  * Representaatio (x,y) arvosta
  * @author toni_
  */
@@ -9,7 +9,7 @@ public class Koordinaatti {
     
     private int x,y;
     
-    /**
+    /*
      * @param x
      * @param y
      */
@@ -18,35 +18,35 @@ public class Koordinaatti {
         this.y = y;
     }
 
-    /**
+    /*
      * @return
      */
     public int getX() {
         return x;
     }
 
-    /**
+    /*
      * @param x
      */
     public void setX(int x) {
         this.x = x;
     }
 
-    /**
+    /*
      * @return
      */
     public int getY() {
         return y;
     }
 
-    /**
+    /*
      * @param y
      */
     public void setY(int y) {
         this.y = y;
     }
     
-    /**
+    /*
      * Määrittää koordinaattiobjektien vertailun siten, että jos vertailuobjekti
      * on arvoltaan null; tai vertailuobjektin luokka on eri; tai jos vertailuobjektin
      * x tai y arvo on eri, niin tällöin funktio palauttaa epätosi, muuten tosi.
@@ -68,7 +68,7 @@ public class Koordinaatti {
         return true;
     }
     
-    /**
+    /*
      * @return
      */
     @Override
@@ -76,7 +76,7 @@ public class Koordinaatti {
         return String.format(this.x + " "+ this.y);
     } 
 
-    /**
+    /*
      * Sietää noin 30 000 x 30 000 pikselin karttoja ennenkuin
      * ylittää intin bittimäärän. Ei pitäisi tulla hashcollisioneita.
      * @return
