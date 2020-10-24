@@ -52,7 +52,11 @@ public class Kuvantuotin {
     }
     
     /**
-     * Luo tarvittavat elementit, rullaa algoritmit ja pullauttaa kuvan.
+     * 1. Luo tarvittavat elementit swing pohjalle
+     * 2. Varmistaa, että valitut koordinaatit kelpaavat kulkukelpoisuuden puolesta
+     * ja, että ovat kuvan sisäpuolella.
+     * 3. Rullaa valitun algoritmin
+     * 4. Pullauttaa kuvan
      */
     public void ajaYksi() {
         SwingUtilities.invokeLater(new Runnable() {

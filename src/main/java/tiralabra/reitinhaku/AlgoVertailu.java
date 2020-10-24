@@ -74,11 +74,13 @@ public class AlgoVertailu {
         int starPituus = star.getReitinPituus();
         System.out.println("GBF pituus: "+gbfPituus+" aika: "+gbfAika);
         System.out.println("A* pituus: "+starPituus+" aika: "+starAika);
-        double[] pal = new double[4];
+        double[] pal = new double[6];
         pal[0] = gbfPituus;
         pal[1] = gbfAika;
         pal[2] = starPituus;
         pal[3] = starAika;
+        pal[4] = (double) gbf.getKasitellytNaapurit();
+        pal[5] = (double) star.getKasitellytNaapurit();
         return pal;
     }
     
@@ -90,12 +92,16 @@ public class AlgoVertailu {
         int[] gbfPituudet = new int[100];
         double[] atahtiAjat = new double[100];
         int[] atahtiPituudet = new int[100];
+        int[] tahtiNaapurit = new int[100];
+        int[] gbfNaapurit = new int[100];
         for(int i = 0; i<100;i++) {
             double[] palautettu = yksiVrt();
             gbfAjat[i] = palautettu[1];
             gbfPituudet[i] = (int)palautettu[0];
             atahtiAjat[i] = palautettu[3];
             atahtiPituudet[i] = (int)palautettu[2];
+            tahtiNaapurit[i] = (int)palautettu[5];
+            gbfNaapurit[i] = (int)palautettu[4];
         }           
         double gbfAjatKA= keskiArvoDouble(gbfAjat);
         double starAjatKA = keskiArvoDouble(atahtiAjat);
@@ -106,11 +112,14 @@ public class AlgoVertailu {
         tmp[1] = atahtiPituudet;
         int pituusEro = suurinPituusEro(tmp);
         int pieninPituusEro = pieninPituusEro(tmp);
+        int naapuritGbfKA = keskiArvoInt(gbfNaapurit);
+        int naapuritStarKA = keskiArvoInt(tahtiNaapurit);
         System.out.println("Arvot 100 toistolle:");
-        System.out.println("GBF keskiarvot - pituus: "+gbfPituusKA+" GBF aika: "+gbfAjatKA);
-        System.out.println("A* keskiarvot - pituus: "+starPituusKA+" A* aika: "+starAjatKA);
+        System.out.println("GBF keskiarvot - pituus: "+gbfPituusKA+" GBF aika: "+gbfAjatKA+" GBF nodejen määrä: "+naapuritGbfKA);
+        System.out.println("A* keskiarvot - pituus: "+starPituusKA+" A* aika: "+starAjatKA+" A* nodejen määrä: "+naapuritStarKA);
         System.out.println("Suurin ero reittien pituuksien välillä: "+pituusEro);
         System.out.println("Pienin ero reittien pituuksien välillä: "+pieninPituusEro);
+    
     }
     
     /*

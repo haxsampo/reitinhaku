@@ -19,6 +19,7 @@ public class Ahne {
     private int harmaa = -1710619; //määrittää kulkukelpoisuuden
     private int reitinPituus;
     private int[][] kartta;
+    private int kasitellytNaapurit;
     
     /*
      *  Konstruktori
@@ -28,6 +29,8 @@ public class Ahne {
      * @param kohdeY Kohdekoordinaatin Y arvo
      * @param kartta sisältää väri-informaation per kordiinaatti - käytetään
      * kulkukelpoisuuden arvioimiseen 
+     * @param kasitellytNaapurit Käytetään käytyjen nodejen keskiarvon laskemiseen.
+     * Lasketaan haenaapurit funktiossa.
      */
     public Ahne(int alkuX, int alkuY, int kohdeX, int kohdeY, int[][] kartta) {
         this.kohdeX = kohdeX;
@@ -43,6 +46,7 @@ public class Ahne {
         this.kartta = kartta;
         kuljettu = new Koordinaatti[kartta.length][kartta[0].length];
         kuljettu[alkuY][alkuX] = this.alku;// tehdään myöhemmin terminaatioehto tätä hyväksikäyttäen  
+        this.kasitellytNaapurit = 0;
     }
     
     /*
@@ -86,21 +90,25 @@ public class Ahne {
             PrioSolmu uus1 = new PrioSolmu(tamaX+1, tamaY, this.kohdeX, this.kohdeY);
             pal[i] = uus1;
             i++;
+            kasitellytNaapurit++;
         }
         if(kartta[tamaY + 1][tamaX] == harmaa) {
             PrioSolmu uus2 = new PrioSolmu(tamaX, tamaY+1, this.kohdeX, this.kohdeY);
             pal[i] = uus2;
             i++;
+            kasitellytNaapurit++;
         }
         if(kartta[tamaY][tamaX - 1] == harmaa) {
             PrioSolmu uus3 = new PrioSolmu(tamaX-1, tamaY, this.kohdeX, this.kohdeY);
             pal[i] = uus3;
             i++;
+            kasitellytNaapurit++;
         }
         if(kartta[tamaY - 1][tamaX] == harmaa) {
             PrioSolmu uus4 = new PrioSolmu(tamaX, tamaY-1, this.kohdeX, this.kohdeY);
             pal[i] = uus4;
             i++;
+            kasitellytNaapurit++;
         }
         return pal;
     }
@@ -134,4 +142,9 @@ public class Ahne {
     public int getReitinPituus() {
         return reitinPituus;
     }
+
+    public int getKasitellytNaapurit() {
+        return kasitellytNaapurit;
+    }
+    
 }

@@ -5,7 +5,7 @@ import tiralabra.ui.Kuvantuotin;
 import java.util.Scanner;
 
 
-/**
+/*
  * Ohjelman käyttöliittymä
  */
 public class Tekstikayttis {
