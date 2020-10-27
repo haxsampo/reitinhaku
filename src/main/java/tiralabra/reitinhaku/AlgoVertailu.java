@@ -115,8 +115,8 @@ public class AlgoVertailu {
         int naapuritGbfKA = keskiArvoInt(gbfNaapurit);
         int naapuritStarKA = keskiArvoInt(tahtiNaapurit);
         System.out.println("Arvot 100 toistolle:");
-        System.out.println("GBF keskiarvot - pituus: "+gbfPituusKA+" GBF aika: "+gbfAjatKA+" GBF nodejen määrä: "+naapuritGbfKA);
-        System.out.println("A* keskiarvot - pituus: "+starPituusKA+" A* aika: "+starAjatKA+" A* nodejen määrä: "+naapuritStarKA);
+        System.out.println("GBF keskiarvot - pituus: "+gbfPituusKA+" - GBF aika: "+gbfAjatKA+" - GBF nodejen määrä: "+naapuritGbfKA);
+        System.out.println("A* keskiarvot - pituus: "+starPituusKA+" - A* aika: "+starAjatKA+" - A* nodejen määrä: "+naapuritStarKA);
         System.out.println("Suurin ero reittien pituuksien välillä: "+pituusEro);
         System.out.println("Pienin ero reittien pituuksien välillä: "+pieninPituusEro);
     
